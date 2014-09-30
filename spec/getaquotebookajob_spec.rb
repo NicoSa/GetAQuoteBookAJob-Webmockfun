@@ -151,4 +151,9 @@ describe 'getaquotebookajob', type: :feature do
 		click_button 'Place Order'
 		expect(page).to have_content 'Great success! The squirrels are on their way now!'
 	end
+
+	xit 'raises error when job couldn\'t be booked' do
+		click_button 'Place Order'
+		expect{page}.to raise_error
+	end
 end

@@ -141,5 +141,10 @@ post '/booking' do
   pickup_location, delivery_location = params['pickup_location'], params['delivery_location']
   booking = booking_body(pickup_location, delivery_location)
   response = HTTParty.post("#{request_url}/bookings", :body => booking.to_json, :headers => request_headers(token) )
-  erb :booked
+  puts response.body.to_s
+  if response.body.to_s != '{"errors":{"base":["Shutl::ResourceNotFound"]}}'
+    erb :booked
+  else
+    raise 'Something went wrong with your booking'
+  end
 end
