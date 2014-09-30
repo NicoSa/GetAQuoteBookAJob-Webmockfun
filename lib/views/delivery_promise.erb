@@ -1,0 +1,9 @@
+<div class="prompt">You can order your sack of squirrels for <%= @best_quote_delivery_text %> !</div>
+<br>
+
+
+<form action="/booking" method="post">
+  <input type="hidden" name='pickup_location' value="<%= @body['quote_collection']['pickup_location']['address']['postcode'] %>" >
+  <input type="hidden" name='delivery_location' value="<%= @body['quote_collection']['delivery_location']['address']['postcode'] %>" >
+  <button type="submit">Place Order</button>
+</form>
