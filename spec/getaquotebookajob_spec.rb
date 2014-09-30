@@ -76,9 +76,65 @@ describe 'getaquotebookajob', type: :feature do
 		}
 	}
 
+	let(:booking) {
+		{
+			"booking" => {
+				"quote_id" => "1a2b3c-asap",
+				"merchant_booking_reference" => "YOUR_REF",
+				"card_type" => "visa",
+				"card_last_4_digits" => "9876",
+				"payment_reference" => "1234567",
+				"gift_wrap" => "false",
+
+				"pickup_location" => {
+					"address" => {
+						"name" =>            "Gary Day",
+						"company_name" =>    "Acme",
+						"line_1" =>          "The Arches",
+						"line_2" =>          "Bethnal Green",
+						"city" =>            "London",
+						"county_or_state" => "",
+						"country" =>         "GB",
+						"postcode" =>        "N1 5SU"
+					},
+
+					"notes" => "proceed directly to the till",
+
+					"contact" => {
+						"name" =>  "Gary",
+						"email" => "gary@acme.com",
+						"phone" => "07840539999"
+					}
+				},
+
+				"delivery_location" => {
+					"address" => {
+						"name" =>            "John Smith",
+						"company_name" =>    "A1 Ltd",
+						"line_1" =>          "12 My St",
+						"line_2" =>          "Aborough",
+						"city" =>            "London",
+						"county_or_state" => "Essex",
+						"country" =>         "GB",
+						"postcode" =>        "E10 6LL"
+					},
+
+					"notes" => "vicious dog",
+
+					"contact" => {
+						"name" =>  "Jane Jones",
+						"email" => "janejones@a1ltd.com",
+						"phone" => "07840536666"
+					}
+				}
+			}
+		}
+
+	}
+
 	before do
 		stub_request(:post, "#{request_url}/quote_collections").with(:body => body.to_json, :headers => {'Authorization'=>'Bearer bZxImVvZImWgvkwHiAT4HQuOLwikANCtuRXeD4gIjwLixIfRJHoiFB0p3K6ZXy9oSo8ktkstdnK_W9TqXUcwCQ' }).to_return(:status => 200, :body => body_collection.to_json)
-		stub_request(:post, "#{request_url}/bookings").with(:body => 'null', :headers => {'Authorization'=>'Bearer bZxImVvZImWgvkwHiAT4HQuOLwikANCtuRXeD4gIjwLixIfRJHoiFB0p3K6ZXy9oSo8ktkstdnK_W9TqXUcwCQ' }).to_return(:status => 200, :body => {})
+		stub_request(:post, "#{request_url}/bookings").with(:body => booking.to_json, :headers => {'Authorization'=>'Bearer bZxImVvZImWgvkwHiAT4HQuOLwikANCtuRXeD4gIjwLixIfRJHoiFB0p3K6ZXy9oSo8ktkstdnK_W9TqXUcwCQ' }).to_return(:status => 200, :body => {})
 		visit '/quote'
 		fill_in 'pickup_location', :with => 'N1 5SU'
 		fill_in 'delivery_location', :with => 'E10 6LL'

@@ -139,6 +139,7 @@ end
 
 post '/booking' do
   pickup_location, delivery_location = params['pickup_location'], params['delivery_location']
-  response = HTTParty.post("#{request_url}/bookings", :body => @booking.to_json, :headers => request_headers(token) )
+  booking = booking_body(pickup_location, delivery_location)
+  response = HTTParty.post("#{request_url}/bookings", :body => booking.to_json, :headers => request_headers(token) )
   erb :booked
 end
